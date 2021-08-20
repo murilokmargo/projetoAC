@@ -48,3 +48,25 @@
     border-top: 0 none;
     border-radius: 0 0 5px 5px;
 }
+
+.logo-wrap{
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    margin-left: 2em;
+}
+
+.botoes{
+    border-bottom: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    margin-left: 10px;
+    color:#ffffff;
+}
+
+.logo{
+    padding: 15px;
+    font-size: 3em;
+    text-decoration: none;
+    color: #ffffff;
+}

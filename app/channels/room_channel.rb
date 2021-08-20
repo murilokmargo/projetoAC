@@ -3,6 +3,7 @@ class RoomChannel < ApplicationCable::Channel
     room = Room.find params[:room]
     stream_for room
     p ("current_user_#{current_user.id}")
+    p ("Sala atual: #{room.id}")
 
     # or
     # stream_from "room_#{params[:room]}"
