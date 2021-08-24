@@ -1,5 +1,37 @@
 <%= simple_form_for @room do |form| %>
     <%= form.input :name %>
+    <div style="margin: 9px 0">
+    <%= form.radio_button :dm, false, :checked => true %>
+    <%= label :dm, 'Público' %>
+    <%= form.radio_button :dm, true %>
+    <%= label :dm, 'Privado' %>
+    </div>
+    <div style="margin: 9px 0">
+    <%= label :to, 'Destinatário' %>
+    <%= form.select :to, User.all.map { |r| [r.username, r.id]}, include_blank: true %>
+    </div>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+
     <%= form.submit "Save", class: 'btn btn-success' %>
 <% end %>
+
+
+<script>
+    $("#room_dm_true" ).on( "click", function() {
+        $("#room_to").attr("disabled", false);
+    });
+    $("#room_dm_false" ).on( "click", function() {
+        $("#room_to").attr("disabled", true);
+        $("#room_to").val('');
+        $("#room_name").val('')
+
+    });
+    $(document).ready( function() {
+        $("#room_to").attr("disabled", true);
+    });
+    $("#room_to").change(function (){
+        let valor = $("#room_to option:selected").text();
+        $("#room_name").val(`chat entre: <%= current_user.username %>/${valor}`)
+    })
+</script>
   

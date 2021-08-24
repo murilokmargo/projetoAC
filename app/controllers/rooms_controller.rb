@@ -6,14 +6,17 @@ class RoomsController < ApplicationController
   
     def index
       @rooms = Room.all
+      @destinatario = User.find_by_sql('select username from users, rooms where users.id = rooms.to AND dm = true')
+      @remetente = User.find_by_sql('select username from users, rooms where users.id = rooms.user_id AND dm = true')
     end
   
     def new
       @room = Room.new
     end
-  
+
     def create
       @room = Room.new permitted_parameters
+
   
       if @room.save
         flash[:success] = "Room #{@room.name} was created successfully"
@@ -27,6 +30,8 @@ class RoomsController < ApplicationController
     end
     
     def show
+      @destinatario = User.find_by_sql('select username from users, rooms where users.id = rooms.to AND dm = true')
+      @remetente = User.find_by_sql('select username from users, rooms where users.id = rooms.user_id AND dm = true')
       @room_message = RoomMessage.new room: @room
       @room_messages = @room.room_messages.includes(:user)
     end
@@ -48,6 +53,6 @@ class RoomsController < ApplicationController
     end
   
     def permitted_parameters
-      params.require(:room).permit(:name)
+      params.require(:room).permit(:name, :dm, :user_id, :to)
     end
   end
