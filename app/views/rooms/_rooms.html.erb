@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <div class="mb-3">
   <%= link_to new_room_path, class: 'btn btn-primary' do %>
@@ -31,10 +31,26 @@
     <% @rooms.each do |room| %>
       <%if room.dm == true%>
         <%if room.user_id == current_user.id %>
-            <%= link_to @destinatario[i].username, room_path(room), class: 'nav-link room-nav-link' %>
+            <div data-channel-subscribe="dm">
+            <%= link_to  room_path(room), class: 'nav-link room-nav-link' do%>
+              <% if @destinatario[i].status == true%>
+                <p class="username"><%= @destinatario[i].username%><i class="status mx-3 glyphicon glyphicon-cloud " style="color: limegreen"></i></p>
+              <% elsif @destinatario[i].status == false || @destinatario[i].status == nil %>
+                <p class="username"><%= @destinatario[i].username%><i class="status mx-3 glyphicon glyphicon-cloud" style="color: grey"></i></p>
+              <%end%>
+            <%end%>
+            </div>
         <% end %>
         <%if room.to == current_user.id %>
-            <%= link_to @remetente[i].username, room_path(room), class: 'nav-link room-nav-link' %>
+            <div data-channel-subscribe="dm">
+            <%= link_to  room_path(room), class: 'nav-link room-nav-link' do%>
+              <% if @remetente[i].status == true%>
+                <p class="username"><%= @remetente[i].username%><i class="status mx-3 glyphicon glyphicon-cloud" style="color: limegreen"></i></p>
+              <% elsif @remetente[i].status == false || @remetente[i].status == nil %>
+                <p class="username"><%=@remetente[i].username%><i class="status mx-3 glyphicon glyphicon-cloud" style="color: grey"></i></p>
+              <%end%>
+            <%end %>
+            </div>
         <% end %>
         <%i = i + 1 %>
       <% end %>

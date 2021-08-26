@@ -6,8 +6,8 @@ class RoomsController < ApplicationController
   
     def index
       @rooms = Room.all
-      @destinatario = User.find_by_sql('select username from users, rooms where users.id = rooms.to AND dm = true')
-      @remetente = User.find_by_sql('select username from users, rooms where users.id = rooms.user_id AND dm = true')
+      @destinatario = User.find_by_sql('select username, status from users, rooms where users.id = rooms.to AND dm = true')
+      @remetente = User.find_by_sql('select username, status from users, rooms where users.id = rooms.user_id AND dm = true')
     end
   
     def new
@@ -30,8 +30,8 @@ class RoomsController < ApplicationController
     end
     
     def show
-      @destinatario = User.find_by_sql('select username from users, rooms where users.id = rooms.to AND dm = true')
-      @remetente = User.find_by_sql('select username from users, rooms where users.id = rooms.user_id AND dm = true')
+      @destinatario = User.find_by_sql('select username, status from users, rooms where users.id = rooms.to AND dm = true')
+      @remetente = User.find_by_sql('select username, status from users, rooms where users.id = rooms.user_id AND dm = true')
       @room_message = RoomMessage.new room: @room
       @room_messages = @room.room_messages.includes(:user)
     end
